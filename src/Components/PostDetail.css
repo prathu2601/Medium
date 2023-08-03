@@ -1,0 +1,72 @@
+.PostDetail_main{
+    display: flex;
+    flex-direction: column;
+    width: 680px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+}
+
+.Post_author :link :hover{
+    text-decoration: underline;
+}
+
+.Post_author{
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.Post_author img{
+    height: 40px;
+    width: 40px;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.Post_author :link{
+    text-decoration: none;
+    color: black;
+}
+
+.Post_author span{
+    color: black;
+}
+
+.Post_author button{
+    font-size: 14px;
+    background-color: white;
+    border: none;
+    margin-left: 20px;
+}
+
+.publish_date{
+    font-size: 14px;
+}
+
+.Like_Comment{
+    border-top: 2px solid rgba(35, 33, 31, 0.562);;
+    border-bottom: 2px solid rgba(35, 33, 31, 0.562);;
+    color: rgba(35, 33, 31, 0.562);
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.Like_Comment button{
+    background-color: #fff;
+    border: none;
+    margin-left: 10px;
+}
+
+.Like_Comment span{
+    margin-right: 10px;
+    float: right;
+}
+
+.Like_Comment img{
+    height: 15px;
+    width: 15px;
+}
+

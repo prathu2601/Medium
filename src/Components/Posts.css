@@ -1,0 +1,21 @@
+.Posts_section{
+    width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Postlist_main{
+    width: 100%;
+}
+
+.Postlist_sec{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.Post_list{
+    width: 33%;
+}
