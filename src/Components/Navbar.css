@@ -1,20 +1,37 @@
-.Main_section{
+.Navbar_main{
     width: 1100px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .Navbar{
-    align-items: center;
     display: flex;
+    align-items: center;
     justify-content: space-around;
 }
 
-.Navbar h2{
+.Home_page{
     flex: 1 1;
+    display: flex;
+    padding: 20px;
 }
 
-.SignUp_button button{
+.Home_page h2{
+    color: black;
+    margin: 0;
+    cursor: pointer;
+}
+
+.Home_page :link{
+    text-decoration: none;
+}
+
+.All_button{
+    display: flex;
+    align-items: center;
+}
+
+.All_button button{
     margin-right: 10px;
     padding: 10px;
     border-radius: 10px;
@@ -23,19 +40,12 @@
     background-color: #FFC017;
 }
 
-.SignUp_button button:hover{
+.All_button button:hover{
     cursor: pointer;
 }
 
-.SignIn_button button{
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    font-size: 18px;
-    background-color: #FFC017;
-}
-
-.SignIn_button button:hover{
-    cursor: pointer;
+.All_button img{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
 }

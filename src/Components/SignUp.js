@@ -1,36 +1,90 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './SignUp.css'
 import {Formik} from 'formik'
 import * as yup from 'yup'
+import Navbar from './Navbar'
+import { useNavigate } from 'react-router-dom'
 
 const SignUpSchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
+  firstname: yup.string().required("Fisrtname is required"),
+  lastname: yup.string().required("Lastname is required"),
   email: yup.string().email("Enter valid email").required("Email is required"),
-  password: yup.string().required("Password is required"),
-  cPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords do not match")
-    .required("Confirm password is required"),
-  dob: yup
-    .date()
-    .required("Date of birth is required"),
+  password: yup.string()
+  .min(6, "Min 6 letter password")
+  .required("Password is required"),
+  cpassword: yup.string().oneOf([yup.ref("password")], "Passwords do not match").required("Confirm password is required")
 });
 
 function SignUp() {
+
+  const navigate = useNavigate()
+
+  const [user,setUSer] = useState(localStorage.getItem('user_info')?JSON.parse(localStorage.getItem('user_info')):{})
+
+  const createuser = (values)=>{
+
+    const address = (user.id === undefined)?
+                      'http://localhost:3001/user/signup':
+                      `http://localhost:3001/user/edit/`
+
+    fetch(address, {
+      method: 'POST',
+      headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+      },
+      body:JSON.stringify({
+        id:user.id,
+        firstname:values.firstname,
+        lastname:values.lastname,
+        email:values.email,
+        password:values.password,
+        bio:values.bio,
+        profilepicture:values.pp_url
+      })
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if(user.id === undefined && data.id === undefined) alert('Email already registered')
+      else{
+        localStorage.setItem('user_info',JSON.stringify(data))
+        navigate(`/author/${data.id}`, {state:data})
+      }
+    })
+    .catch((errors)=>console.log(errors))
+  }
+
   return (
     <div className='Signup_main'>
-      <h3>Sign Up</h3>
+    <Navbar/>
+    <div className='Signup_sec'>
+      {user.id ===undefined?
+        <h2>Sign Up</h2>:
+        <h2>Edit Profile</h2>
+      }
       <Formik
-        initialValues={{
-          name: "",
-          password: "",
+        initialValues= {user.id ===undefined?
+        {
+          firstname: "",
+          lastname: "",
           email: "",
-          cPassword: "",
-          dob: "",
-        }}
+          password: "",
+          cpassword: "",
+          bio:"",
+          pp_url:"",
+        }:
+        {
+          firstname: `${user.firstname}`,
+          lastname: `${user.lastname}`,
+          email: `${user.email}`,
+          password: "",
+          cpassword: "",
+          bio:`${user.bio}`,
+          pp_url:`${user.profilepicture}`,
+        }
+      }
         validationSchema={SignUpSchema}
-        onSubmit={(values) => {}}
-      >
+        onSubmit={(values) => createuser(values)}
+        >
         {({
           handleBlur,
           handleChange,
@@ -40,61 +94,99 @@ function SignUp() {
           errors,
         }) => (
           <form noValidate onSubmit={handleSubmit}>
-            <div className="mt-2">
+            <div className="input_div">
               <input
                 type="text"
-                name="name"
-                value={values.name}
+                name="firstname"
+                value={values.firstname}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`block flex-1 border-1 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 ${
-                  touched.name && !!errors.name && "border border-red-700"
-                }`}
-                placeholder="Enter your name"
+                placeholder="Enter your first name"
               />
-              {touched.name && !!errors.name && (
-                <span className="text-xs text-red-700">{errors.name}</span>
+              {touched.firstname && !!errors.firstname && (
+                <span>{errors.firstname}</span>
               )}
             </div>
-            <div className="mt-2">
+            <div className="input_div">
+              <input
+                type="text"
+                name="lastname"
+                value={values.lastname}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Enter your last name"
+              />
+              {touched.lastname && !!errors.lastname && (
+                <span>{errors.lastname}</span>
+              )}
+            </div>
+            <div className="input_div">
               <input
                 type="text"
                 name="email"
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`block flex-1 border-1 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 ${
-                  touched.email && !!errors.email && "border border-red-700"
-                }`}
                 placeholder="email"
               />
               {touched.email && !!errors.email && (
-                <span className="text-xs text-red-700">{errors.email}</span>
+                <span>{errors.email}</span>
               )}
             </div>
-            <div className="mt-2">
+            <div className="input_div">
               <input
-                type="text"
+                type="password"
                 name="password"
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                autoComplete="password"
-                className={`block flex-1 border-1 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 ${
-                  touched.password &&
-                  !!errors.password &&
-                  "border border-red-700"
-                }`}
                 placeholder="password"
               />
               {touched.password && !!errors.password && (
-                <span className="text-xs text-red-700">{errors.password}</span>
+                <span>{errors.password}</span>
               )}
             </div>
-            <button type="submit">Sign Up</button>
+            <div className="input_div">
+              <input
+                type="password"
+                name="cpassword"
+                value={values.cpassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="confirm password"
+              />
+              {touched.cpassword && !!errors.cpassword && (
+                <span>{errors.cpassword}</span>
+              )}
+            </div>
+            <div className="input_div">
+              <input
+                type="text"
+                name="bio"
+                value={values.bio}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Add bio"
+              />
+            </div>
+            <div className="input_div">
+              <input
+                type="text"
+                name="pp_url"
+                value={values.pp_url}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="pp_url"
+              />
+            </div>
+            {user.id === undefined?
+              <button type="submit">Sign Up</button>:
+              <button type="submit">Edit Profile</button>
+            }
           </form>
         )}
       </Formik>
+      </div>
     </div>
   );
 }

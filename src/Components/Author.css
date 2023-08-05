@@ -1,0 +1,53 @@
+.Author_main{
+    display: grid;
+}
+
+.Author_sec{
+    width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
+.Author_info{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.Author_info img{
+    height: 100px;
+    width: 100px!important;
+    border-radius: 50%;
+}
+
+.Author_name{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.Author_name h1{
+    font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.Author_name h1 span{
+    flex: 1 1;
+}
+
+.Author_name button{
+    padding: 5px 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.Author_posts{
+    border-top: 2px solid rgba(35, 33, 31, 0.562);
+    padding-top: 50px;
+}

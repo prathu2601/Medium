@@ -3,7 +3,7 @@ import './CreateBlog.css'
 import {Formik} from 'formik'
 import * as yup from 'yup'
 import Navbar from './Navbar';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SignUpSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
@@ -12,40 +12,35 @@ const SignUpSchema = yup.object().shape({
 });
 
 
-function CreateBlog() {
+function EditBlog() {
     
     const navigate = useNavigate()
+    const post = useLocation().state
 
-    const [user, setUser] = useState(localStorage.getItem('user_info')?JSON.parse(localStorage.getItem('user_info')):{})
-    const createblog = (values)=>{
-        if(user.id === undefined){
-            alert("Sign in First")
-            navigate('/signin')
-        }
-        else{
-            fetch('http://localhost:3001/blog_posts/create', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-                body: JSON.stringify({
-                    title:values.title,
-                    topic:values.topic,
-                    body:values.body,
-                    imgurl:values.imgurl,
-                    views:0,
-                    user_id:user.id
-                })
+    const editblog = (values)=>{
+        fetch('http://localhost:3001/blog_posts/edit', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                id:post.id,
+                title:values.title,
+                topic:values.topic,
+                body:values.body,
+                imgurl:values.imgurl,
+                views:post.views,
+                user_id:post.user_id
             })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                navigate(`/post/${data.id}`, {state:data})
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
-        }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            // console.log(data[0]);
+            navigate(`/post/${data.id}`, {state:data})
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
     }
     
 
@@ -53,16 +48,16 @@ function CreateBlog() {
     <div className='Blog_main'>
         <Navbar/>
         <div className='Blog_sec'>
-            <h2>Create blog</h2>
+            <h2>Edit blog</h2>
             <Formik
                 initialValues={{
-                title: "",
-                topic: "",
-                imgurl: "",
-                body: "",
+                title: `${post.title}`,
+                topic: `${post.topic}`,
+                imgurl: `${post.imgurl}`,
+                body: `${post.body}`,
                 }}
                 validationSchema={SignUpSchema}
-                onSubmit={(values) => createblog(values)}
+                onSubmit={(values) => editblog(values)}
             >
                 {({
                 handleBlur,
@@ -122,7 +117,7 @@ function CreateBlog() {
                             <span>{errors.body}</span>
                         )}
                     </div>
-                    <button type="submit">Create blog</button>
+                    <button type="submit">Edit blog</button>
                 </form>
                 )}
             </Formik>
@@ -131,4 +126,4 @@ function CreateBlog() {
   );
 }
 
-export default CreateBlog
+export default EditBlog

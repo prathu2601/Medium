@@ -1,9 +1,12 @@
 .Post_main{
     display: flex;
+    margin-top: 10px;
+    /* background-color: rgba(71, 68, 65, 0.1); */
+    margin-right: 10px;
 }
 
 .Post_number{
-    color: rgba(71, 68, 65, 0.105);
+    color: rgba(71, 68, 65, 0.619);
     margin-left: 10px;
 }
 
@@ -20,15 +23,15 @@
 }
 
 .Author{
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     margin-top: 2px;
     margin-bottom: 8px;
 }
 
 .Author img{
-    height: 15px;
-    width: 15px;
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
     margin-right: 5px;
 }
@@ -39,11 +42,14 @@
 }
 
 .Author span{
+    display: flex;
     color: black;
+    cursor: pointer;
+    align-items: center;
 }
 
 .Title{
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 8px;
 }
@@ -55,8 +61,11 @@
 
 .Title span{
     color: black;
+    cursor: pointer;
 }
 
 .Date_publish{
-    font-size: 14px;
+    font-size: 12px;
+    display: flex;
+    gap: 15px;
 }

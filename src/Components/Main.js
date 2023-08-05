@@ -6,7 +6,7 @@ import Navbar from './Navbar'
 function Main() {
   return (
     <div className='Main'>
-        <Navbar/>
+        <Navbar signin={1} signup={1} createblog={1}/>
         <div className='Posts'>
             <Posts/>
         </div>

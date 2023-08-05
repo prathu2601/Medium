@@ -1,27 +1,68 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Navbar.css'
-import { Link } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 function Navbar() {
+    const navigate = useNavigate()
+
+    const sigin = useLocation().pathname
+    
+    const [user, setUser] = useState(localStorage.getItem('user_info')?JSON.parse(localStorage.getItem('user_info')):{})
+
+    // console.log(user)
+    // useEffect(()=>{
+    //     if(localStorage.getItem('user_info')){
+    //         setUser(localStorage.getItem('user_info'))
+    //     }
+    //     // console.log(localStorage.getItem('user_info'))
+    // },[user])
+    
   return (
     <div style={{backgroundColor:"#FFC017"}}>
-        <div className='Main_section'>
+        <div className='Navbar_main'>
             <div className='Navbar'>
-                <h2> Medium </h2>
-                <div className='SignUp_button'>
-                    <Link to={'./createblog'}>
-                        <button>CreateBlog</button>
-                    </Link>
+                <div className='Home_page'>
+                    <h2 onClick={()=>navigate('/')}>
+                        Medium 
+                    </h2>
                 </div>
-                <div className='SignUp_button'>
-                    <Link to={'./signup'}>
-                        <button>Sign up</button>
-                    </Link>
-                </div>
-                <div className='SignIn_button'>
-                    <Link to={'./signin'}>
-                        <button>Sign In</button>
-                    </Link>
+                <div className='All_button'>
+                    {(sigin !== '/createblog' && user.id !== undefined)?
+                        <button onClick={()=>navigate('/createblog')}>
+                            Create Blog
+                        </button>:
+                        <></>
+                    }
+                    {(sigin !== '/signup' && user.id === undefined)?
+                        <button onClick={()=>navigate('/signup')}>
+                            Sign up
+                        </button>:
+                        <></>
+                    }
+                    {(sigin !== '/signin' && user.id === undefined)?
+                        <button onClick={()=>navigate('/signin')}>
+                            Sign In
+                        </button>:
+                        <></>
+                    }
+                    {user.id !== undefined?
+                        <button onClick={()=>{navigate(`/author/${user.id}`)}}>
+                            <img src={`${user.profilepicture}`} alt=''/>
+                            <span>{user.firstname}</span>
+                        </button>:
+                        <></>
+                    }
+                    {user.id !== undefined?
+                        <button onClick={()=>{
+                            localStorage.removeItem('user_info')
+                            setUser({})
+                            navigate('/')
+                            window.location.reload()
+                        }}>
+                            Sign Out
+                        </button>:
+                        <></>
+                    }
                 </div>
             </div>
         </div>

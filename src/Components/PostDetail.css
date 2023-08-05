@@ -1,8 +1,13 @@
 .PostDetail_main{
+    display: grid;
+    margin-bottom: 150px;
+}
+
+.PostDetail_sec{
     display: flex;
     flex-direction: column;
     width: 680px;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 10px;
@@ -33,17 +38,22 @@
 
 .Post_author span{
     color: black;
+    cursor: pointer;
 }
 
 .Post_author button{
-    font-size: 14px;
+    font-size: 16px;
     background-color: white;
     border: none;
     margin-left: 20px;
+    cursor: pointer;
 }
 
 .publish_date{
-    font-size: 14px;
+    margin-top: 10px;
+    font-size: 12px;
+    display: flex;
+    gap: 15px;
 }
 
 .Like_Comment{
@@ -58,6 +68,7 @@
     background-color: #fff;
     border: none;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .Like_Comment span{
@@ -70,3 +81,44 @@
     width: 15px;
 }
 
+.Post_text{
+    display: flex;
+    flex-direction: column;
+}
+
+.Post_text_img{
+    display: flex;
+    justify-content: center;
+}
+
+.Post_text_img img{
+    height: 480px;
+    width: 600px;
+}
+
+.Post_text p{
+    margin-left: 2px;
+}
+
+.Edit_delete_post{
+    margin-bottom: 40px;
+}
+
+.Comments_main{
+    margin-top: 20px;
+    /* margin-bottom: 150px; */
+}
+
+.Add_comment{
+    margin-bottom: 20px;
+}
+
+.Add_comment input{
+    width: 79%;
+    padding: 5px 10px;
+}
+
+.Add_comment button{
+    padding: 5px 10px;
+    margin-left: 10px;
+}

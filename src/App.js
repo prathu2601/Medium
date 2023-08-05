@@ -6,6 +6,8 @@ import SignUp from './Components/SignUp';
 import SignIn from './Components/SignIn';
 import Author from './Components/Author';
 import CreateBlog from './Components/CreateBlog';
+import EditBlog from './Components/EditBlog';
+
 
 const router = createBrowserRouter([
   {
@@ -24,8 +26,14 @@ const router = createBrowserRouter([
     path:'/signup',
     element:<SignUp/>
   },{
-    path:'/createblog/',
+    path:'/createblog',
     element:<CreateBlog/>
+  },{
+    path:'/editblog/:id',
+    element:<EditBlog/>
+  },{
+    path:'/editprofile/:id',
+    element:<SignUp/>
   }
 ])
 
