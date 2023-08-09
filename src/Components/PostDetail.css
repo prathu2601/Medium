@@ -10,17 +10,17 @@
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 10px;
 }
 
-.Post_author :link :hover{
-    text-decoration: underline;
+.Post_title{
+    margin-left: 10px;
 }
 
 .Post_author{
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 8px;
+    margin-left: 10px;
     display: flex;
 }
 
@@ -29,11 +29,6 @@
     width: 40px;
     margin-right: 20px;
     border-radius: 50%;
-}
-
-.Post_author :link{
-    text-decoration: none;
-    color: black;
 }
 
 .Post_author span{
@@ -57,11 +52,13 @@
 }
 
 .Like_Comment{
-    border-top: 2px solid rgba(35, 33, 31, 0.562);;
-    border-bottom: 2px solid rgba(35, 33, 31, 0.562);;
+    border-top: 2px solid rgba(35, 33, 31, 0.562);
+    border-bottom: 2px solid rgba(35, 33, 31, 0.562);
     color: rgba(35, 33, 31, 0.562);
     margin-bottom: 20px;
     padding: 10px 0;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .Like_Comment button{
@@ -84,6 +81,8 @@
 .Post_text{
     display: flex;
     flex-direction: column;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .Post_text_img{
@@ -92,8 +91,9 @@
 }
 
 .Post_text_img img{
-    height: 480px;
+    /* height: 480px; */
     width: 600px;
+    aspect-ratio: auto;
 }
 
 .Post_text p{
@@ -106,19 +106,32 @@
 
 .Comments_main{
     margin-top: 20px;
-    /* margin-bottom: 150px; */
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .Add_comment{
+    display: flex;
     margin-bottom: 20px;
 }
 
 .Add_comment input{
-    width: 79%;
+    width: 78%;
     padding: 5px 10px;
 }
 
 .Add_comment button{
     padding: 5px 10px;
     margin-left: 10px;
+}
+
+@media (max-width:680px) {
+    .PostDetail_sec{
+        width: 100%;
+    }
+
+    .Post_text_img img{
+        width: 100%;
+        aspect-ratio: auto 480/600;
+    }
 }

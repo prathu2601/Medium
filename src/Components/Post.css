@@ -36,11 +36,6 @@
     margin-right: 5px;
 }
 
-.Author :link{
-    text-decoration: none;
-    color: black;
-}
-
 .Author span{
     display: flex;
     color: black;
@@ -54,11 +49,6 @@
     margin-bottom: 8px;
 }
 
-.Title :link{
-    text-decoration: none;
-    color: black;
-}
-
 .Title span{
     color: black;
     cursor: pointer;
@@ -69,3 +59,4 @@
     display: flex;
     gap: 15px;
 }
+

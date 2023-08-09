@@ -33,7 +33,7 @@
     border: none;
 }
 
-.comment_img img{
+.comment_img button img{
     height: 20px;
     width: 20px;
 }

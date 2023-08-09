@@ -31,6 +31,7 @@ function Posts() {
                 setPosts([...data])
             });
         }
+        
     },[])
 
     const search_info = (dat)=>{
@@ -78,10 +79,10 @@ function Posts() {
                         <button onClick={search_post}>Search</button>
                     </div>
                 </div>
-                <div className=''>
+                <div style={{marginLeft:'10px'}}>
                     {swit?
                         <h2>Recomendate Posts</h2>:
-                        <h2>Posts</h2>
+                        <h2>All Posts</h2>
                     }
                 </div>
                 <div className='Postlist_main'>

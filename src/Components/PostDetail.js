@@ -221,7 +221,7 @@ function PostDetail() {
           <h2>Comments</h2>
           {user.id !== undefined?<div className='Add_comment'>
             <input value={com_val} placeholder='What are your thoughts?' onChange={(e)=>setCom_val(e.target.value)}/>
-            <button onClick={addcomment}>Add Comment</button>
+            <button onClick={addcomment}>Comment</button>
           </div>:<></>}
           {comments.map((comment)=>{
             // console.log(comment)

@@ -48,3 +48,14 @@
     display: flex;
     justify-content: center;
 }
+
+@media (max-width:680px) {
+    .Posts_section{
+        width: 100%;
+        padding: 0;
+    }
+
+    .Post_list{
+        width: 100%;
+    }
+}

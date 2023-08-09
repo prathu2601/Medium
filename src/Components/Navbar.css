@@ -33,8 +33,6 @@
 
 .All_button button{
     margin-right: 10px;
-    padding: 10px;
-    border-radius: 10px;
     border: none;
     font-size: 18px;
     background-color: #FFC017;
@@ -48,4 +46,25 @@
     height: 20px;
     width: 20px;
     border-radius: 50%;
+}
+
+@media (max-width:680px) {
+    .Navbar_main{
+        width: 100%;
+    }
+
+    .Home_page{
+        padding: 10px 5px;
+        font-size: 12px;
+    }
+
+    .All_button button{
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+    .All_button img{
+        height: 14px;
+        width: 14px;
+    }
 }
