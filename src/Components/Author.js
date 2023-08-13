@@ -2,68 +2,84 @@ import React, { useEffect, useState } from 'react'
 import './Author.css'
 import Navbar from './Navbar'
 import Author_post from './Author_post'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function Author() {
 
-  const author = useLocation().state
   const navigate = useNavigate()
 
-  const dummp = localStorage.getItem('user_info')?JSON.parse(localStorage.getItem('user_info')):{}
-  const [followed, setFollowed] = useState(0)
+  const { authorId } = useParams()
+  const [author, setAuthor] = useState({})
+  // console.log(author)
 
+  const [followed, setFollowed] = useState(0)
+  const [following, setFollowing] = useState({})
 
   const [user, setUser] = useState(
-    author !== null?
-    author:
     localStorage.getItem('user_info')?
     JSON.parse(localStorage.getItem('user_info')):
     {})
+    // console.log(user)
 
   const [postss, setPosts] = useState([])
 
-    useEffect(()=>{
+  useEffect(()=>{
 
-      if(dummp.id !== undefined){
-        fetch(`http://localhost:3001/is_followed/?user1_id=${dummp.id}&user2_id=${user.id}`, {
-          method: 'GET',
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log(data)
-          setFollowed(data)
-        })
-        .catch((error)=>console.log(error))
-      }
+    fetch(`http://localhost:3001/follow/all/${authorId}`, {
+      method: 'GET',
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log(data)
+      setFollowing(data.result[0])
+    })
+    .catch((error)=>console.log(error))
+    
 
-    },[])
+    fetch(`http://localhost:3001/user/${authorId}`, {
+      method: 'GET',
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log(data.result[0])
+      setAuthor(data.result[0])
+    })
+    .catch((error)=>console.log(error))
+
+  }, [authorId])
 
   useEffect(()=>{
-    let user_in = localStorage.getItem('user_info')?
-    JSON.parse(localStorage.getItem('user_info')):
-    {}
-    if(author !== null)
-      user_in = author
-    fetch(`http://localhost:3001/blog_posts/user/${user_in.id}`, {
+
+    if(user.id !== undefined && user.id !== parseInt(authorId)){
+      fetch(`http://localhost:3001/follow/is/?user1_id=${user.id}&user2_id=${authorId}`, {
+        method: 'GET',
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data)
+        setFollowed(data.result)
+      })
+      .catch((error)=>console.log(error))
+    }
+
+  },[authorId])
+
+  useEffect(()=>{
+
+    fetch(`http://localhost:3001/blog_posts/user/${authorId}`, {
         method: 'GET',
     })
     .then((response) => response.json())
     .then((data) => {
-      setPosts([...data])
+      setPosts([...data.result])
+      // console.log(data)
     })
     .catch((error)=>console.log(error))
-  },[author])
 
-  useEffect(()=>{
-    setUser(author !== null?
-      author:
-      localStorage.getItem('user_info')?
-      JSON.parse(localStorage.getItem('user_info')):
-      {})
-  },[author])
+  },[authorId])
 
   const toggle_follow = ()=>{
-    fetch(`http://localhost:3001/toggle_follow/?user1_id=${dummp.id}&user2_id=${user.id}`, {
+    fetch(`http://localhost:3001/follow/toggle/?user1_id=${user.id}&user2_id=${authorId}`, {
       method: 'POST',
     })
     .then((response) => response.json())
@@ -80,23 +96,23 @@ function Author() {
       <div className='Author_sec'>
         <div className='Author_info'>
           <div>
-            <img src={`${user.profilepicture}`} alt=''/>
+            <img src={`${author.profilepicture}`} alt=''/>
           </div>
           <div className='Author_name'>
             <h1>
               <span>
-                {user.firstname} {user.lastname}
+                {author.firstname} {author.lastname}
               </span>
-              {dummp.id !== undefined && dummp.id !== user.id ?followed?
+              {user.id !== undefined && user.id !== author.id ?followed?
                 <button onClick={toggle_follow}>Unfollow</button>:  
                 <button onClick={toggle_follow}>Follow</button>
               :<></>}
-              {dummp.id !== undefined && dummp.id === user.id ?
-                <button onClick={()=>navigate(`/editprofile/${dummp.id}`)}>Edit Profile</button>:
+              {user.id !== undefined && user.id === author.id ?
+                <button onClick={()=>navigate(`/editprofile/${user.id}`)}>Edit Profile</button>:
                 <></>
               }
             </h1>
-            <span>{user.bio} </span>
+            <span>{author.bio} </span>
           </div>
         </div>
         <div className='Author_posts'>

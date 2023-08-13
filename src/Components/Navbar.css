@@ -10,6 +10,20 @@
     justify-content: space-around;
 }
 
+.Menu_button{
+    display: none;
+}
+
+.Menu_button button{
+    border: none;
+    background-color: #FFC017;
+}
+
+.Menu_button img{
+    background-color: #FFC017;
+    height: 20px;
+}
+
 .Home_page{
     flex: 1 1;
     display: flex;
@@ -22,8 +36,8 @@
     cursor: pointer;
 }
 
-.Home_page :link{
-    text-decoration: none;
+.All_but{
+    display: none;
 }
 
 .All_button{
@@ -36,9 +50,6 @@
     border: none;
     font-size: 18px;
     background-color: #FFC017;
-}
-
-.All_button button:hover{
     cursor: pointer;
 }
 
@@ -48,23 +59,54 @@
     border-radius: 50%;
 }
 
+.All_but{
+    display: none;
+}
+
 @media (max-width:680px) {
     .Navbar_main{
         width: 100%;
+    }
+
+    .Navbar{
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .Home_page{
         padding: 10px 5px;
         font-size: 12px;
     }
-
-    .All_button button{
-        margin-right: 5px;
-        font-size: 14px;
+    
+    .Menu_button{
+        display: block;
     }
 
-    .All_button img{
+    .All_button{
+        display: none;
+    }
+
+    .All_but{
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .All_but img{
         height: 14px;
         width: 14px;
+        border-radius: 50%;
+    }
+
+    .All_but button{
+        width: 100%;
+        text-align: left;
+        font-size: 14px;
+        padding: 0 0 10px 40px;
+        border: none;
+        background-color: #FFC017;
+        border-bottom: 1px solid;
     }
 }

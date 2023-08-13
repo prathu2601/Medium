@@ -1,0 +1,20 @@
+.Subscription_sec{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.Cards{
+    display: flex;
+    gap: 50px;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+@media (max-width:680px) {
+    .Cards{
+        flex-direction: column;
+    }
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Post.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Post({post, index}) {
 
@@ -17,8 +17,8 @@ function Post({post, index}) {
         })
         .then((response) => response.json())
         .then((data) => {
-        // console.log(data[0])
-        setAuthor(data[0])
+            // console.log(data)
+            setAuthor(data.result[0])
         })
         .catch((error)=>console.log(error))
         
@@ -27,10 +27,9 @@ function Post({post, index}) {
         })
         .then((response) => response.json())
         .then((data) => {
-            setReadtime(data)
+            setReadtime(data.result)
         })
         .catch((error)=>console.log(error))
-
 
     },[])
 
@@ -42,7 +41,7 @@ function Post({post, index}) {
         </div>
         <div className='Post_brief'>
             <div className='Author'>
-                <span onClick={()=>navigate(`/author/${author.id}`, {state:author})}>
+                <span onClick={()=>navigate(`/author/${author.id}`)}>
                     {author.profilepicture!==null?<img src={`${author.profilepicture}`}></img>:<></>}
                     {`${author.firstname} ${author.lastname}`}
                 </span>

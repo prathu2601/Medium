@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './SignUp.css'
 import {Formik} from 'formik'
 import * as yup from 'yup'
 import Navbar from './Navbar'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const SignUpSchema = yup.object().shape({
   firstname: yup.string().required("Fisrtname is required"),
@@ -19,8 +19,29 @@ function SignUp() {
 
   const navigate = useNavigate()
 
+  const { authorId } = useParams()
+  // console.log(authorId)
   const [user,setUSer] = useState(localStorage.getItem('user_info')?JSON.parse(localStorage.getItem('user_info')):{})
+  
+  useEffect(()=>{
+    
+    if(user.id === undefined && authorId !== undefined){
+      alert("Signin first")
+      navigate('/signin')
+    }
 
+    else if(authorId === undefined && user.id !== undefined){
+      alert("Sign out first")
+      navigate(`/author/${user.id}`)
+    }
+    
+    else if(user.id !== undefined && authorId !== undefined && user.id !== parseInt(authorId)){
+      alert("You cannot edit this")
+      navigate(`/author/${user.id}`)
+    }
+
+  },[])
+  
   const createuser = (values)=>{
 
     const address = (user.id === undefined)?
@@ -44,10 +65,10 @@ function SignUp() {
     })
     .then((response) => response.json())
     .then((data) => {
-      if(user.id === undefined && data.id === undefined) alert('Email already registered')
+      if(data.status === 0) alert(data.notice)
       else{
-        localStorage.setItem('user_info',JSON.stringify(data))
-        navigate(`/author/${data.id}`, {state:data})
+        localStorage.setItem('user_info',JSON.stringify(data.result))
+        navigate(`/author/${data.result.id}`)
       }
     })
     .catch((errors)=>console.log(errors))
@@ -62,7 +83,7 @@ function SignUp() {
         <h2>Edit Profile</h2>
       }
       <Formik
-        initialValues= {user.id ===undefined?
+        initialValues= {user.id === undefined?
         {
           firstname: "",
           lastname: "",

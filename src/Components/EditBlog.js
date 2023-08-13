@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './CreateBlog.css'
 import {Formik} from 'formik'
 import * as yup from 'yup'
@@ -17,30 +17,38 @@ function EditBlog() {
     const navigate = useNavigate()
     const post = useLocation().state
 
+    const [user, setUser] = useState(localStorage.getItem('user_info')?JSON.parse(localStorage.getItem('user_info')):{})
+
     const editblog = (values)=>{
-        fetch('http://localhost:3001/blog_posts/edit', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-            body: JSON.stringify({
-                id:post.id,
-                title:values.title,
-                topic:values.topic,
-                body:values.body,
-                imgurl:values.imgurl,
-                views:post.views,
-                user_id:post.user_id
+        if(user.id === undefined){
+            alert("Sign in First")
+            navigate('/signin')
+        }
+        else{
+            fetch('http://localhost:3001/blog_posts/edit', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify({
+                    blog_post_id:post.id,
+                    title:values.title,
+                    topic:values.topic,
+                    body:values.body,
+                    imgurl:values.imgurl,
+                    views:post.views,
+                    user_id:post.user_id
+                })
             })
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            // console.log(data[0]);
-            navigate(`/post/${data.id}`, {state:data})
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                // console.log(data.result);
+                navigate(`/post/${data.result.id}`)
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+        }
     }
     
 

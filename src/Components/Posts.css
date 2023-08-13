@@ -21,32 +21,86 @@
 }
 
 .Search_Filter{
-    /* border: 1px solid; */
-    /* background-color: aqua; */
     display: flex;
     padding-top: 0;
     align-items: center;
     justify-content: space-around;
+    flex-direction: column;
+    background-color: #ffc1174a;
+    border-radius: 10px;
+}
+
+.Search_Filter input{
+    border-radius: 5px;
+}
+
+.Search_Filter button{
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Search_Filter h3{
+    margin: 0 0 10px 0;
+}
+
+.Filters{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 10px;
+}
+
+.Filter_author input{
+    padding: 5px;
+}
+
+.Filter_likes{
+    display: flex;
+    gap: 20px;
+}
+
+.Filter_likes input{
+    width: 80px;
+    padding: 5px;
+}
+
+.Filter_comments{
+    display: flex;
+    gap: 20px;
+}
+
+.Filter_comments input{
+    width: 80px;
+    padding: 5px;
+}
+
+.Filters button{
+    padding: 5px 10px;
 }
 
 .Search{
-    margin-top: 10px;
+    padding: 10px 0;
 }
 
 .Search input{
     padding: 5px 10px;
-    margin-right: 10px;
     margin-left: 10px;
 }
 
 .Search button{
+    margin-left: 10px;
     padding: 5px 10px;
-    /* margin-right: 10px; */
 }
 
 .Switch_id{
     display: flex;
     justify-content: center;
+}
+
+.Switch_id button{
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 @media (max-width:680px) {
@@ -57,5 +111,10 @@
 
     .Post_list{
         width: 100%;
+    }
+    
+    .Filters{
+        flex-direction: column;
+        gap: 10px;
     }
 }

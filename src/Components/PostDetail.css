@@ -1,8 +1,3 @@
-.PostDetail_main{
-    display: grid;
-    margin-bottom: 150px;
-}
-
 .PostDetail_sec{
     display: flex;
     flex-direction: column;

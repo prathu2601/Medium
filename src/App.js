@@ -1,7 +1,8 @@
+import React from 'react';
 import './App.css';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Main from './Components/Main';
-import PostDetail from './Components/PostDetail';
+import PostDetails from './Components/PostDetails';
 import SignUp from './Components/SignUp';
 import SignIn from './Components/SignIn';
 import Author from './Components/Author';
@@ -14,10 +15,10 @@ const router = createBrowserRouter([
     path:'/',
     element:<Main/>
   },{
-    path:'/post/:id',
-    element:<PostDetail/>
+    path:'/post/:postId',
+    element:<PostDetails/>
   },{
-    path:'/author/:id',
+    path:'/author/:authorId',
     element:<Author/>
   },  {
     path:'/signin',
@@ -29,10 +30,10 @@ const router = createBrowserRouter([
     path:'/createblog',
     element:<CreateBlog/>
   },{
-    path:'/editblog/:id',
+    path:'/editblog/:postId',
     element:<EditBlog/>
   },{
-    path:'/editprofile/:id',
+    path:'/editprofile/:authorId',
     element:<SignUp/>
   }
 ])

@@ -12,14 +12,24 @@ const SignUpSchema = yup.object().shape({
 
 function SignIn() {
 
-  const [users,setUsers] = useState([])
   const navigate = useNavigate()
+  const [user,setUSer] = useState(localStorage.getItem('user_info')?JSON.parse(localStorage.getItem('user_info')):{})
+
+
+  useEffect(()=>{
+    
+    if(user.id !== undefined){
+      alert("Already Signed In")
+      navigate(`/author/${user.id}`)
+    }
+
+  },[])
 
   const signin = (values)=>{
-    fetch('http://localhost:3001/user/signin', {
+    fetch(`http://localhost:3001/user/signin`, {
       method: 'POST',
       headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json'
       },
       body:JSON.stringify({
         email:values.email,
@@ -28,15 +38,14 @@ function SignIn() {
     })
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data)
-      if(data.id === undefined) alert('Invalid email or password')
+      if(data.status === 0) alert(data.notice)
       else{
-        localStorage.setItem('user_info',JSON.stringify(data))
-        navigate(`/author/${data.id}`, {state:data})
+        localStorage.setItem('user_info',JSON.stringify(data.result))
+        navigate(`/author/${data.result.id}`)
       }
     })
     .catch((err) => {
-    console.log(err.message);
+      console.log(err.message);
     });
   }
 

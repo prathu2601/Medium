@@ -17,6 +17,7 @@ function CreateBlog() {
     const navigate = useNavigate()
 
     const [user, setUser] = useState(localStorage.getItem('user_info')?JSON.parse(localStorage.getItem('user_info')):{})
+    
     const createblog = (values)=>{
         if(user.id === undefined){
             alert("Sign in First")
@@ -39,8 +40,8 @@ function CreateBlog() {
             })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
-                navigate(`/post/${data.id}`, {state:data})
+                // console.log(data.result);
+                navigate(`/post/${data.result.id}`)
             })
             .catch((err) => {
                 console.log(err.message);

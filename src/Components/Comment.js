@@ -14,7 +14,7 @@ function Comment({comment, det_comm, user}) {
         })
         .then((response) => response.json())
         .then((data) => {
-            setNew_user(...data)
+            setNew_user(...data.result)
         })
         .catch((error)=>console.log(error))
     },[])
@@ -22,7 +22,7 @@ function Comment({comment, det_comm, user}) {
   return (
     <div  className='Comments_sec'>
         <div className='comment_img'>
-            <span onClick={()=>navigate(`/author/${new_user.id}`, {state:new_user})}>
+            <span onClick={()=>navigate(`/author/${new_user.id}`)}>
                     {new_user.profilepicture!==null?<img src={`${new_user.profilepicture}`}></img>:<></>}
                     {`${new_user.firstname} ${new_user.lastname}`}
             </span>
